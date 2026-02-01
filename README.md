@@ -117,9 +117,103 @@ docker-compose down -v
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
 - **Containerization**: Docker, Docker Compose
 
+## GitHub Copilot CLI Integration
+
+This repository is designed to work with the **GitHub Copilot CLI**, a powerful command-line interface for leveraging AI-powered code assistance.
+
+### Installing GitHub Copilot CLI
+
+#### Option 1: Quick Install (Recommended)
+
+Use the provided tarball installation script:
+
+```bash
+# Download and run the installation script
+chmod +x install_github_copilot_tarball.sh
+sudo ./install_github_copilot_tarball.sh
+```
+
+The script will:
+- Auto-detect your platform (amd64/arm64)
+- Download the appropriate tarball for v0.0.400
+- Install the binary to `/usr/local/bin/gh`
+- Optionally authenticate with GitHub
+
+#### Option 2: Skip Authentication
+
+If you prefer to authenticate manually later:
+
+```bash
+sudo ./install_github_copilot_tarball.sh --no-auth
+```
+
+Then authenticate when ready:
+```bash
+gh auth login
+```
+
+#### Option 3: Manual Installation
+
+If the script doesn't work for your system:
+
+```bash
+# Check GitHub Releases for your platform
+# https://github.com/github/copilot-cli/releases
+
+# Download the appropriate tarball for your system
+# Extract and install manually
+tar -xzf copilot-cli_*.tar.gz
+sudo cp gh /usr/local/bin/gh
+sudo chmod +x /usr/local/bin/gh
+```
+
+### Verifying Installation
+
+```bash
+# Check if GitHub Copilot CLI is installed
+gh version
+
+# Check authentication status
+gh auth status
+```
+
+### Using Copilot CLI with This Project
+
+Once installed, you can use Copilot CLI to:
+
+1. **Get help with code explanations:**
+   ```bash
+   gh copilot explain "cat app/app.py"
+   ```
+
+2. **Generate code suggestions:**
+   ```bash
+   gh copilot suggest "create a flask route to delete submissions"
+   ```
+
+3. **Ask general questions:**
+   ```bash
+   gh copilot ask "how do I add authentication to my flask app"
+   ```
+
+### GitHub Copilot CLI Features
+
+- **Slash Commands**: Use `/help`, `/code`, `/explain` in your terminal
+- **AI-Powered Assistance**: Get intelligent suggestions for code problems
+- **Context-Aware**: Works with your project's code
+- **Fast & Efficient**: Get instant assistance without leaving the terminal
+
+For more information:
+```bash
+gh copilot --help
+```
+
+Or visit: https://github.com/github/copilot-cli
+
 ## Development Notes
 
 - The Flask app runs in production mode for simplicity. For development, set `FLASK_ENV=development` in docker-compose.yml
 - The SQLite database file is stored in a Docker volume for persistence
 - Frontend files are mounted as a volume for easy editing
 - CORS is enabled to allow frontend requests to backend API
+- GitHub Copilot CLI is optional but recommended for enhanced development experience
