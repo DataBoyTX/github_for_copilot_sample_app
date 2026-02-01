@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/data
+      - ./frontend:/app/frontend
+    environment:
+      - FLASK_ENV=production
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: sqlite
+    volumes:
+      - ./data:/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
